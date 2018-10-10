@@ -1,6 +1,6 @@
 # 03nuxtProject
 
-> My premium Nuxt.js project
+> try to study nuxt
 
 ## Build Setup
 
