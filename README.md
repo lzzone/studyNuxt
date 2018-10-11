@@ -1,6 +1,7 @@
 # 03nuxtProject
 
-> try to study nuxt
+> try to study nuxt.
+  updating...
 
 ## Build Setup
 
