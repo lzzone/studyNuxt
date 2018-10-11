@@ -18,17 +18,18 @@ class ProjectNuxt{
     this.app = new Koa();
     config.dev = !(this.app.env === 'production')
   }
+  runCallBack(cb){
+    cb();
+  }
   middleware(){
+    var that = this;
     return R.map(
       R.compose(
-        R.map( i => i(this.app) ),
+        i => i( that.app ),
         require,
-        i => { return this.filePath(i) }
+        i => { return `${filePath}${i}` }
       )
     )
-  }
-  filePath(path){
-    return `${filePath}${path}`
   }
   async start(){
     // Instantiate nuxt.js
@@ -94,6 +95,10 @@ class ProjectNuxt{
 // }
 
 // start()
+//
+//
+//     // "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+//
 //
 var projectNuxt = new ProjectNuxt();
 projectNuxt.start();
