@@ -7,6 +7,7 @@ var config = require("../../config/index.js");
 var sha1 = require("sha1");
 // var hash = crypto.createHash('sha1');
 var toolMethods = new ToolMethod();
+var Wechat = require("../../wechat/index.js");
 
 function router(app){
     koaRouter.get("/wechatVervify",function(ctx,next){
@@ -27,10 +28,13 @@ function router(app){
             return false
         }
     });
+    koaRouter.post("/wechatVervify",function(ctx,next){
+        var wechat = new Wechat();
+    })
 
     app
-    .use(koaRouter.routes())
-    .use(koaRouter.allowedMethods());
+    .use( koaRouter.routes() )
+    .use( koaRouter.allowedMethods() );
 
 }
 
