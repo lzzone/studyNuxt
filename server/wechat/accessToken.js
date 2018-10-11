@@ -1,5 +1,6 @@
 var rp = require("request-promise");
 
+
 class AccessToken {
     constructor(){
         this.appID = "wx893e176e34330b72";
@@ -24,6 +25,12 @@ class AccessToken {
             console.log("accessToken.js:获取accessToken失败");
             console.log(err);
         });
+
+    }
+    saveAccessToken(){
+
+    }
+    vertifyAccessToken(){
 
     }
 }
