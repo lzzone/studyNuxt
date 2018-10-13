@@ -16,8 +16,14 @@ function template(ctx,msg){
             <FromUserName><![CDATA[<%=templateMsg.ToUserName[0]%>]]></FromUserName>
             <CreateTime><%=templateMsg.CreateTime%></CreateTime>
             <MsgType><![CDATA[<%=templateMsg.MsgType %>]]></MsgType>
+            <% if( templateMsg.MsgType == "text" ){ %>
             <Content><![CDATA[<%=templateMsg.Content %>]]></Content>
-            <MsgId><%=templateMsg.MsgId%></MsgId>
+            <MsgId><![CDATA[<%=templateMsg.MsgId[0] %>]]></MsgId>
+            <% } else if( templateMsg.MsgType == "image" ){  %>
+            <Image>
+                <MediaId><![CDATA[<%=templateMsg.MediaId[0] %>]]></MediaId>
+            </Image>
+            <% } %>
         </xml>
     */})
 

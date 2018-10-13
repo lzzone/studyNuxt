@@ -29,6 +29,8 @@ function WechatReply(){
             reply( ctx,ctx.request.body.xml );
             // 根据模板生成返回xml
             var replyTemplate = template( ctx,ctx.request.body.xml );
+            console.log("生成的模板");
+            console.log( replyTemplate )
             ctx.type = "application/xml";
             ctx.body = replyTemplate;
         }

@@ -1,6 +1,6 @@
 # 03nuxtProject
 
-> try to study nuxt.
+> 开始学习nuxt.js和微信公众号开发.
   updating...
 
 ## Build Setup

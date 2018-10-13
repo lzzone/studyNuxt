@@ -13,6 +13,11 @@ function reply(ctx,msg){
         ctxW.Content = msg.Content[0];
         ctxW.MsgType = msgType;
     }
+    // 图片回复
+    else if( msgType == "image" ){
+        // ctxW.Content = msg.Content[0];
+        ctxW.MsgType = msgType;
+    }
     // 事件
     else if( msgType == "event" ) {
         // 用户关注的事件
