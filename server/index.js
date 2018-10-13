@@ -4,6 +4,7 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const R = require("ramda");
 
+
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
@@ -23,6 +24,7 @@ class ProjectNuxt{
   }
   middleware(){
     var that = this;
+
     return R.map(
       R.compose(
         i => i( that.app ),
@@ -41,7 +43,7 @@ class ProjectNuxt{
     //   await builder.build()
     // }                             // //暂时注释 >
 
-    this.middleware()(fileName);
+    this.middleware()(fileName);    //中间件执行
 
     this.app.use(ctx => {
       ctx.status = 200 // koa defaults to 404 when it sees that status is unset

@@ -2,7 +2,8 @@
 var config = require("../config/index.js");
 var sha1 = require("sha1");
 var AccessToken = require("./accessToken.js");
-
+var reply = require("./reply.js");
+var template = require("./template.js");
 function WechatReply(){
 
     return async function (ctx,next){
@@ -14,8 +15,6 @@ function WechatReply(){
             var nonce = query.nonce;
             var vervifyArr = [token,timestamp,nonce].sort();
             vervifyArr = vervifyArr.join("");
-            // hash.update(vervifyArr);
-            // var vervifyArrSha1 = hash.digest('hex');
             var vervifyArrSha1 = sha1( vervifyArr )
             if( query.signature == vervifyArrSha1 ) {
                 ctx.body = query.echostr;
@@ -25,8 +24,13 @@ function WechatReply(){
         }else if( ctx.method == "POST" ) {
             var accessTokenInfo = new AccessToken();
             var getData = await accessTokenInfo.vertifyAccessToken();
-            console.log("打印获取的accesstoken信息");
-            console.log( getData )
+            console.log( ctx.request.body );
+            // 制定回复策略
+            reply( ctx,ctx.request.body.xml );
+            // 根据模板生成返回xml
+            var replyTemplate = template( ctx,ctx.request.body.xml );
+            ctx.type = "application/xml";
+            ctx.body = replyTemplate;
         }
 
     }
