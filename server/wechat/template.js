@@ -9,8 +9,6 @@ var ejs = require("ejs");
 function template(ctx,msg){
     var wechat = ctx.wechat;
     var templateMsg = msg;
-    templateMsg.MsgType = wechat.MsgType;
-    templateMsg.Content = wechat.Content;
     templateMsg.CreateTime = Math.floor( ( new Date().getTime() ) / 1000 );
     var str = heredoc.strip(function() {/*
         <xml>
