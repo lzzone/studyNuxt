@@ -4,7 +4,6 @@ class AccessToken {
     constructor(){
         this.appID = "wx893e176e34330b72";
         this.appsecret = "109d5c5572d0a7a43d74b68b89db244c";
-        this.vertifyAccessToken();
     }
     // 获取微信access_token并存到本地
     async getAccessToken(){
@@ -17,8 +16,8 @@ class AccessToken {
                 "secret": this.appsecret
             }
         };
-
-        rp(options)
+        //return一个promise回去给await使用
+        return rp(options)
         .then( async function (res) {
             console.log(res);
             res = JSON.parse( res );
@@ -36,7 +35,13 @@ class AccessToken {
                     return updateData           //返回更新的数据
                 }
                 console.log(updateResult);
-
+                var json = {
+                    access_token: res.access_token,
+                    expires_in: res.expires_in,
+                    create_time: Math.floor( ( new Date().getTime() ) / 1000 )
+                }
+                console.log(json)
+                return json;
             }else {
                 console.log("accessToken.js:获取失败");
                 return
@@ -51,16 +56,18 @@ class AccessToken {
     async vertifyAccessToken(){
         var sqlSelect = "SELECT * FROM access_token_t";
         var getQueryResult = await query( sqlSelect,"" );
-        console.log("执行验证")
+        getQueryResult = getQueryResult[0];
         var getNowTime = Math.floor( ( new Date().getTime() ) / 1000 );
         if( getQueryResult.expires_in < getNowTime ) {
-            this.getAccessToken();
+            console.log("重新获取access_token")
+            var json = await this.getAccessToken();
+            // console.log( json )
+            return json    //在这里没有返回的话执行那里接收不到，在getAccessToken那里返回没有用
         }else {
-            return new Promise( (res)=>{
-                res(getQueryResult)
-            } )
+            console.log("没有过期")
+            // res(getQueryResult)
+            return getQueryResult
         }
-
     }
 }
 

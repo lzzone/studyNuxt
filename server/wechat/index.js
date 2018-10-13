@@ -23,11 +23,10 @@ function WechatReply(){
                 return false
             }
         }else if( ctx.method == "POST" ) {
-            var accessTokenInfo = await new AccessToken();
+            var accessTokenInfo = new AccessToken();
+            var getData = await accessTokenInfo.vertifyAccessToken();
             console.log("打印获取的accesstoken信息");
-            console.log( accessTokenInfo );
-            console.log( accessTokenInfo.vertifyAccessToken() )
-            // this.accessToken.getAccessToken();
+            console.log( getData )
         }
 
     }
