@@ -33,13 +33,13 @@ class ProjectNuxt{
   }
   async start(){
     // Instantiate nuxt.js
-    const nuxt = new Nuxt(config)
+    // const nuxt = new Nuxt(config)  //暂时注释
 
-    // Build in development
-    if (config.dev) {
-      const builder = new Builder(nuxt)
-      await builder.build()
-    }
+    // Build in development          //< //暂时注释
+    // if (config.dev) {
+    //   const builder = new Builder(nuxt)
+    //   await builder.build()
+    // }                             // //暂时注释 >
 
     this.middleware()(fileName);
 
@@ -49,10 +49,10 @@ class ProjectNuxt{
       return new Promise((resolve, reject) => {
         ctx.res.on('close', resolve)
         ctx.res.on('finish', resolve)
-        nuxt.render(ctx.req, ctx.res, promise => {
-          // nuxt.render passes a rejected promise into callback on error.
-          promise.then(resolve).catch(reject)
-        })
+        // nuxt.render(ctx.req, ctx.res, promise => {             //< //暂时注释
+        //   // nuxt.render passes a rejected promise into callback on error.
+        //   promise.then(resolve).catch(reject)
+        // })                                                     // //暂时注释 >
       })
     })
 

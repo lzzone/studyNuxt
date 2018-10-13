@@ -1,11 +1,37 @@
+
+var config = require("../config/index.js");
+var sha1 = require("sha1");
 var AccessToken = require("./accessToken.js");
-//   var accessToken = new AccessToken();  如果在这里new对象，再在constructor里面使用就会出现报错，因为没有在constructor里面new的话就是undefined
-class Wechat {
-    constructor(){
-        this.accessToken = new AccessToken();
-        this.accessToken.getAccessToken();
+
+function WechatReply(){
+
+    return async function (ctx,next){
+        if( ctx.method == "GET" ) {
+            var query = ctx.query;
+            console.log( query );
+            var token = config.Token;
+            var timestamp = query.timestamp;
+            var nonce = query.nonce;
+            var vervifyArr = [token,timestamp,nonce].sort();
+            vervifyArr = vervifyArr.join("");
+            // hash.update(vervifyArr);
+            // var vervifyArrSha1 = hash.digest('hex');
+            var vervifyArrSha1 = sha1( vervifyArr )
+            if( query.signature == vervifyArrSha1 ) {
+                ctx.body = query.echostr;
+            }else {
+                return false
+            }
+        }else if( ctx.method == "POST" ) {
+            var accessTokenInfo = await new AccessToken();
+            console.log("打印获取的accesstoken信息");
+            console.log( accessTokenInfo );
+            console.log( accessTokenInfo.vertifyAccessToken() )
+            // this.accessToken.getAccessToken();
+        }
+
     }
 
 }
 
-module.exports = Wechat;
+module.exports = WechatReply;
