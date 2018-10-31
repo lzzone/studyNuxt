@@ -1,5 +1,6 @@
 var rp = require("request-promise");
 var query = require("../database/index.js");
+var formatTime = require("../toolMethods/index.js");
 class AccessToken {
     constructor(){
         this.appID = "wx893e176e34330b72";
@@ -54,6 +55,8 @@ class AccessToken {
 
     }
     async vertifyAccessToken(){
+        console.log( formatTime(3) );
+        console.log( formatTime(6) );
         var sqlSelect = "SELECT * FROM access_token_t";
         var getQueryResult = await query( sqlSelect,"" );
         getQueryResult = getQueryResult[0];
