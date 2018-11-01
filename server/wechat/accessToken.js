@@ -1,6 +1,7 @@
 var rp = require("request-promise");
 var query = require("../database/index.js");
-var formatTime = require("../toolMethods/index.js");
+var Tool = require("../toolMethods/index.js");
+var tool = new Tool();
 class AccessToken {
     constructor(){
         this.appID = "wx893e176e34330b72";
@@ -24,14 +25,14 @@ class AccessToken {
             res = JSON.parse( res );
             if( res.access_token ) {
                 res.expires_in =  Math.floor( ( new Date().getTime() ) / 1000 ) + 7200 - 20;    //过期时间
-                var sql = "UPDATE access_token_t SET access_token = ?,expires_in = ?,create_time = ?";
-                var updateData = [ res.access_token,res.expires_in, Math.floor( ( new Date().getTime() ) / 1000 ) ];
+                var sql = "UPDATE access_token_t SET access_token = ?,expires_in = ?,create_time = ?,create_format_time = ?";
+                var updateData = [ res.access_token,res.expires_in, Math.floor( ( new Date().getTime() ) / 1000 ),tool.formatTime(6) ];
 
                 var updateResult = await query( sql,updateData );
 
                 if( updateResult.changedRows == 0 ) {  //改变行数是0，没有查到要修改的东西，就添加。这里可以用async/await，但是现在不想用
 
-                    var sqlAdd = "INSERT INTO access_token_t(access_token,expires_in,create_time) value (?,?,?)";
+                    var sqlAdd = "INSERT INTO access_token_t(access_token,expires_in,create_time,create_format_time) value (?,?,?,?)";
                     await query(sqlAdd,updateData)
                     return updateData           //返回更新的数据
                 }
@@ -55,8 +56,6 @@ class AccessToken {
 
     }
     async vertifyAccessToken(){
-        console.log( formatTime(3) );
-        console.log( formatTime(6) );
         var sqlSelect = "SELECT * FROM access_token_t";
         var getQueryResult = await query( sqlSelect,"" );
         getQueryResult = getQueryResult[0];

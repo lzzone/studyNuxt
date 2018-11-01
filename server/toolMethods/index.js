@@ -31,7 +31,7 @@ class Tool {
         for( var i = 1;i<=HMS;i++ ){
             str +=  `${HMSArr[i-1]}-`;
             if( i == HMS ) {
-                str = str.slice( 0,str.length );
+                str = str.slice( 0,str.length-1 );
             }
         }
         return str;

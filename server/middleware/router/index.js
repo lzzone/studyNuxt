@@ -9,7 +9,7 @@ function router(app){
     app.use(koaBodyParser());
 
     koaRouter.all("/wechatVervify",Wechat());
-
+    koaRouter.get("/BuiltInPage");
     app
     .use( koaRouter.routes() )
     .use( koaRouter.allowedMethods() );

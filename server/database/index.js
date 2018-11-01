@@ -18,7 +18,6 @@ function query(sql,value){
             }else {
                 connection.query( sql,value,function(err,result){
                     if(err) {
-                        console.log("执行sql语句")
                         rej(err);
                     } else {
                         res(result);

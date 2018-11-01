@@ -4,6 +4,7 @@ var sha1 = require("sha1");
 var AccessToken = require("./accessToken.js");
 var reply = require("./reply.js");
 var template = require("./template.js");
+var JsSdk = require("./jssdk.js");
 function WechatReply(){
 
     return async function (ctx,next){
@@ -22,8 +23,11 @@ function WechatReply(){
                 return false
             }
         }else if( ctx.method == "POST" ) {
+
             var accessTokenInfo = new AccessToken();
             var getData = await accessTokenInfo.vertifyAccessToken();
+            // 暂时放在这里，测试jssdk，准确应放在请求网址的地方
+            var jsSdk = new JsSdk().init();
             console.log( ctx.request.body );
             // 制定回复策略
             reply( ctx,ctx.request.body.xml );
