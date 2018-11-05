@@ -26,9 +26,9 @@ function WechatReply(){
 
             var accessTokenInfo = new AccessToken();
             var getData = await accessTokenInfo.vertifyAccessToken();
-            // 暂时放在这里，测试jssdk，准确应放在请求网址的地方
-            var jsSdk = new JsSdk().init();
-            console.log( ctx.request.body );
+            // // 暂时放在这里，测试jssdk，准确应放在请求网址的地方
+            // var jsSdk = new JsSdk().init();
+            // console.log( ctx.request.body );
             // 制定回复策略
             reply( ctx,ctx.request.body.xml );
             // 根据模板生成返回xml

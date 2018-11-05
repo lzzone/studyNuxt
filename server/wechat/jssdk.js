@@ -18,11 +18,14 @@ class JsTicket{
             return getJsTiket
         }else {
             if( this.vervifyTicket( getLocalData[0].expires_in ) ) {
+                return getLocalData[0]
             }else {
-                var getJsTiket = await this.getJsTiket();
+                var getJsTiketR = await this.getJsTiket();
                 console.log("更新jsticket");
-                this.updateJsTiket( JSON.parse( getJsTiket ) );
-                return getJsTiket
+                getJsTiketR = JSON.parse( getJsTiketR )
+                getJsTiketR.jsTicket = getJsTiketR.ticket;
+                this.updateJsTiket( getJsTiketR );
+                return getJsTiketR
             }
         }
     }
