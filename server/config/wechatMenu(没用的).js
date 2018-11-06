@@ -46,7 +46,7 @@ var menu =  {
                 {    
                     "type":"view",
                     "name":"跳转",
-                    "url":"https://f7cbfef6.ngrok.io/"
+                    "url":"https://7b773459.ngrok.io/auth/auth"
                 },
                 {
                     "name": "发送位置", 

@@ -9,7 +9,7 @@ import axios from "axios";
 export default {
   mounted: function(){
     var pathname = window.location.pathname;
-    axios.post("/BuiltInPage",{
+    axios.post("/webapp/signature",{
       url: pathname
     }).then( (res)=>{
       console.log(res);
