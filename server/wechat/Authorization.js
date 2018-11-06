@@ -13,7 +13,8 @@ class Auth {
         var code = ctx.query.code;
         var accessToken = await this.getAccessToken(code);
         accessToken = JSON.parse( accessToken );
-        // var userInfo = await this.getUserInfo( accessToken.access_token );
+        // 使用这个只能拿openid是拿不到用户信息的
+        // var userInfo = await this.getUserInfo( accessToken.access_token,accessToken.openid );
         // console.log(userInfo);
         ctx.body = accessToken.openid;
     }
@@ -22,7 +23,7 @@ class Auth {
         var code = ctx.query.code;
         var accessToken = await this.getAccessToken(code);
         accessToken = JSON.parse( accessToken );
-        var userInfo = await this.getUserInfo( accessToken.access_token );
+        var userInfo = await this.getUserInfo( accessToken.access_token,accessToken.openid );
         console.log(userInfo);
         ctx.body = userInfo;
     }
